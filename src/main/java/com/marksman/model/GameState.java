@@ -5,7 +5,6 @@ public class GameState {
     private int point;
     private int shot;
     private int recordPoint;
-    private int recordShot;
 
     private boolean active;
     private boolean paused;   //игру можно продолжить (флаг о сохранении прошлой игры)
@@ -50,14 +49,6 @@ public class GameState {
         this.shot = shot;
     }
 
-    public int getRecordShot() {
-        return recordShot;
-    }
-
-    public void setRecordShot(int recordShot) {
-        this.recordShot = recordShot;
-    }
-
     public int getRecordPoint() {
         return recordPoint;
     }
@@ -65,7 +56,6 @@ public class GameState {
     public void setRecordPoint(int recordPoint) {
         this.recordPoint = recordPoint;
     }
-
 
     public boolean isActive() {
         return active;
