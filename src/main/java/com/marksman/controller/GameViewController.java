@@ -28,10 +28,16 @@ public class GameViewController {
     }
 
     @FXML
-    private void onPauseClick() {}
+    private void onPauseClick() {
+        gameController.stopGame();
+        updateUI();
+    }
 
     @FXML
-    private void onShotClick() {}
+    private void onShotClick() {
+        gameController.addShot();
+        updateUI();
+    }
 
     private void updateUI() {
         pointValue.setText(String.valueOf(gameController.getState().getPoint()));
