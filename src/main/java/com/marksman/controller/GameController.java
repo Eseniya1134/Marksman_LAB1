@@ -73,4 +73,7 @@ public class GameController {
         }
     }
 
+    public GameState getState() {
+        return state;
+    }
 }
