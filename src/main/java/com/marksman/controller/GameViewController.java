@@ -1,5 +1,6 @@
 package com.marksman.controller;
 
+import com.marksman.view.GameField;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -14,11 +15,14 @@ public class GameViewController {
     @FXML private Button pauseBtn;
     @FXML private Button shotBtn;
 
+    @FXML private GameField gameField;
+
     private GameController gameController;
 
     @FXML
     public void initialize() {
         gameController = new GameController();
+        gameField.render();
     }
 
     @FXML

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
+<?import com.marksman.view.GameField?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
@@ -20,5 +20,8 @@
             <Button fx:id="shotBtn" text="ВЫСТРЕЛ" onAction="#onShotClick"/>
         </VBox>
     </right>
+    <center>
+        <GameField fx:id="gameField"/>
+    </center>
 
 </BorderPane>
