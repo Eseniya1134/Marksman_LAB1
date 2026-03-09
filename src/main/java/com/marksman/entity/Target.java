@@ -19,7 +19,7 @@ public class Target extends Thread{
         while (running){
             verticalMovement();
             try {
-                Thread.sleep(16); 
+                Thread.sleep(16);
             } catch (InterruptedException e) {
                 break;
             }
@@ -32,7 +32,7 @@ public class Target extends Thread{
 
     public void verticalMovement(){
         yPos += speed;
-        if (yPos <= 0 || yPos >= 600){
+        if (yPos <= 0 + size || yPos >= 600){
             speed = -speed;
         }
     }

@@ -1,6 +1,8 @@
 package com.marksman.controller;
 
+import com.marksman.entity.Target;
 import com.marksman.view.GameField;
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -18,9 +20,21 @@ public class GameViewController {
     @FXML private GameField gameField;
 
     private GameController gameController;
+    private Target nearTarget;
+    private Target farTarget;
+    private AnimationTimer gameLoop;
 
     @FXML
     public void initialize() {
+        gameLoop = new AnimationTimer() {
+            @Override
+            public void handle(long now) {
+                gameField.render();
+                if (nearTarget != null) gameField.drawTarget(nearTarget);
+                if (farTarget != null) gameField.drawTarget(farTarget);
+            }
+        };
+        gameLoop.start();
         gameController = new GameController();
         gameField.render();
     }
@@ -28,6 +42,7 @@ public class GameViewController {
     @FXML
     private void onStartClick() {
         gameController.startGame();
+        onCreateTerget();
         updateUI();
     }
 
@@ -48,6 +63,16 @@ public class GameViewController {
         shotValue.setText(String.valueOf(gameController.getState().getShot()));
         recordValue.setText(String.valueOf(gameController.getState().getRecordPoint()));
     }
+
+    private void onCreateTerget(){
+        if (nearTarget != null) nearTarget.stopTarget();
+        if (farTarget != null) farTarget.stopTarget();
+        this.nearTarget = new Target(500, 300, 70, 10);
+        this.farTarget = new Target(800, 300, 35, 20);
+        nearTarget.start();
+        farTarget.start();
+    }
+
 
 
 }
