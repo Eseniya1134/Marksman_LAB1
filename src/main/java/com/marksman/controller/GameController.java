@@ -11,7 +11,7 @@ public class GameController {
 
     private GameState state;
     private SaveManager saveManager;
-    private static final int MAX_SHOTS = 20;
+    private static final int MAX_SHOTS = 40;
 
     public GameController(){
         this.saveManager = new SaveManager();

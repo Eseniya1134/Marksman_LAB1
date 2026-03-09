@@ -25,6 +25,7 @@ public class GameViewController {
     private Target farTarget;
     private Arrow arrow;
     private AnimationTimer gameLoop;
+    private boolean flag = false;
 
     @FXML
     public void initialize() {
@@ -32,6 +33,7 @@ public class GameViewController {
             @Override
             public void handle(long now) {
                 gameField.render();
+                gameField.drawPlayer();
                 if (nearTarget != null) gameField.drawTarget(nearTarget);
                 if (farTarget != null) gameField.drawTarget(farTarget);
                 if (arrow != null) gameField.drawArrow(arrow);
@@ -44,6 +46,7 @@ public class GameViewController {
 
     @FXML
     private void onStartClick() {
+        flag = true;
         gameController.startGame();
         onCreateTerget();
         updateUI();
@@ -51,19 +54,20 @@ public class GameViewController {
 
     @FXML
     private void onPauseClick() {
+        flag = false;
         gameController.stopGame();
         updateUI();
     }
 
     @FXML
     private void onShotClick() {
-        gameController.addShot();
-        if (gameController.getState().isActive()) {
+        if (flag == true){
+            gameController.addShot();
             if (arrow != null) arrow.stopArrow();
-            arrow = new Arrow(100, 300, 30, 5);
+            arrow = new Arrow(100, 283, 70, 5);
             arrow.start();
+            updateUI();
         }
-        updateUI();
     }
 
     private void updateUI() {

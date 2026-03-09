@@ -49,6 +49,6 @@ public class GameField extends Canvas {
 
     public void drawPlayer() {
         GraphicsContext gc = getGraphicsContext2D();
-        gc.drawImage(playerImage, 20, 250, 80, 100);
+        gc.drawImage(playerImage, 20, 250, 160, 200);
     }
 }
