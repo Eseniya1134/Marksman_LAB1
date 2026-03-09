@@ -6,13 +6,15 @@ public class Target extends Thread{
     private int yPos;
     private int size;
     private int speed;
+    private boolean isFar;
     private boolean running = true;
 
-    public Target(int xPos, int yPos, int size, int speed) {
+    public Target(int xPos, int yPos, int size, int speed, boolean isFar) {
         this.xPos = xPos;
         this.yPos = yPos;
         this.size = size;
         this.speed = speed;
+        this.isFar = isFar;
     }
 
     public void run(){
@@ -26,13 +28,17 @@ public class Target extends Thread{
         }
     }
 
+    public boolean isFar(){
+        return isFar;
+    }
+
     public void stopTarget() {
         running = false;
     }
 
     public void verticalMovement(){
         yPos += speed;
-        if (yPos <= 0 + size || yPos >= 600){
+        if (yPos <= 0  || yPos >= 600 - size){
             speed = -speed;
         }
     }

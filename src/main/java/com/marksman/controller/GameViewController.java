@@ -1,5 +1,6 @@
 package com.marksman.controller;
 
+import com.marksman.entity.Arrow;
 import com.marksman.entity.Target;
 import com.marksman.view.GameField;
 import javafx.animation.AnimationTimer;
@@ -22,6 +23,7 @@ public class GameViewController {
     private GameController gameController;
     private Target nearTarget;
     private Target farTarget;
+    private Arrow arrow;
     private AnimationTimer gameLoop;
 
     @FXML
@@ -32,6 +34,7 @@ public class GameViewController {
                 gameField.render();
                 if (nearTarget != null) gameField.drawTarget(nearTarget);
                 if (farTarget != null) gameField.drawTarget(farTarget);
+                if (arrow != null) gameField.drawArrow(arrow);
             }
         };
         gameLoop.start();
@@ -55,6 +58,11 @@ public class GameViewController {
     @FXML
     private void onShotClick() {
         gameController.addShot();
+        if (gameController.getState().isActive()) {
+            if (arrow != null) arrow.stopArrow();
+            arrow = new Arrow(100, 300, 30, 5);
+            arrow.start();
+        }
         updateUI();
     }
 
@@ -67,8 +75,8 @@ public class GameViewController {
     private void onCreateTerget(){
         if (nearTarget != null) nearTarget.stopTarget();
         if (farTarget != null) farTarget.stopTarget();
-        this.nearTarget = new Target(500, 300, 70, 10);
-        this.farTarget = new Target(800, 300, 35, 20);
+        this.nearTarget = new Target(400, 300, 100, 3, false);
+        this.farTarget = new Target(650, 300, 50, 6, true);
         nearTarget.start();
         farTarget.start();
     }
