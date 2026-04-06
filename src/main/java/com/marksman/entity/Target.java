@@ -43,6 +43,11 @@ public class Target extends Thread{
         }
     }
 
+    public boolean isHit(Arrow arrow) {
+        return arrow.getxPos() >= xPos && arrow.getxPos() <= xPos + size &&
+                arrow.getyPos() >= yPos && arrow.getyPos() <= yPos + size;
+    }
+
     public int getSpeed() {
         return speed;
     }

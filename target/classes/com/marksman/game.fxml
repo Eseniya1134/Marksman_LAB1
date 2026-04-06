@@ -18,6 +18,8 @@
             <Button fx:id="startBtn" text="НАЧАЛО ИГРЫ" onAction="#onStartClick"/>
             <Button fx:id="pauseBtn" text="ОСТАНОВИТЬ" onAction="#onPauseClick"/>
             <Button fx:id="shotBtn" text="ВЫСТРЕЛ" onAction="#onShotClick"/>
+            <Label text="Время:"/>
+            <Label fx:id="timeValue" text="60"/>
         </VBox>
     </right>
     <center>
