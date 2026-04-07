@@ -16,11 +16,11 @@ public class GameField extends Canvas {
 
     public GameField() {
         super(900, 600);
-        bgImage = new Image(getClass().getResourceAsStream("/com/marksman/images/cloud.png"));
-        target1Image = new Image(getClass().getResourceAsStream("/com/marksman/images/target1.png"));
-        target2Image = new Image(getClass().getResourceAsStream("/com/marksman/images/target2.png"));
+        bgImage = new Image(getClass().getResourceAsStream("/com/marksman/images/bg.jpg"));
+        target1Image = new Image(getClass().getResourceAsStream("/com/marksman/images/target.png"));
+        target2Image = new Image(getClass().getResourceAsStream("/com/marksman/images/target.png"));
         arrowImage = new Image(getClass().getResourceAsStream("/com/marksman/images/arrow.png"));
-        playerImage = new Image(getClass().getResourceAsStream("/com/marksman/images/angel.png"));
+        playerImage = new Image(getClass().getResourceAsStream("/com/marksman/images/hero.png"));
     }
 
     public GameField(double width, double height) {
@@ -44,11 +44,11 @@ public class GameField extends Canvas {
 
     public void drawArrow(Arrow arrow) {
         GraphicsContext gc = getGraphicsContext2D();
-        gc.drawImage(arrowImage, arrow.getxPos(), arrow.getyPos(), arrow.getSize(), arrow.getSize());
+        gc.drawImage(arrowImage, arrow.getxPos(), arrow.getyPos(), arrow.getSize()*2, arrow.getSize());
     }
 
     public void drawPlayer() {
         GraphicsContext gc = getGraphicsContext2D();
-        gc.drawImage(playerImage, 20, 250, 160, 200);
+        gc.drawImage(playerImage, 20, 200, 150, 160);
     }
 }

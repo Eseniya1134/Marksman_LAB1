@@ -14,7 +14,8 @@ public class Main extends Application {
     public void start(Stage stage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/marksman/game.fxml"));
         BorderPane root = loader.load();
-        Scene scene = new Scene(root, 1000, 600);
+        Scene scene = new Scene(root);
+        stage.setMaximized(true);
         stage.setTitle("Меткий стрелок");
         stage.setScene(scene);
         stage.show();

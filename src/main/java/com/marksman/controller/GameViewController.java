@@ -119,7 +119,7 @@ public class GameViewController {
 
             if (arrow != null) arrow.stopArrow();
 
-            arrow = new Arrow(100, 283, 70, 5);
+            arrow = new Arrow(100, 280, 70, 10);
             arrow.start();
 
             updateUI();
@@ -137,8 +137,8 @@ public class GameViewController {
         if (nearTarget != null) nearTarget.stopTarget();
         if (farTarget != null) farTarget.stopTarget();
 
-        this.nearTarget = new Target(400, 300, 100, 3, false);
-        this.farTarget = new Target(650, 300, 50, 6, true);
+        this.nearTarget = new Target(400, 300, 150, 3, false);
+        this.farTarget = new Target(650, 300, 75, 6, true);
 
         nearTarget.start();
         farTarget.start();

@@ -4,24 +4,60 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Region?>
 <BorderPane xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.marksman.controller.GameViewController">
+            fx:controller="com.marksman.controller.GameViewController"
+            stylesheets="@marksman.css">
 
     <right>
-        <VBox spacing="10">
-            <Label text="Счёт игрока:"/>
-            <Label fx:id="pointValue" text="0"/>
-            <Label text="Кол-во выстрелов:"/>
-            <Label fx:id="shotValue" text="0"/>
-            <Label text="Рекорд:"/>
-            <Label fx:id="recordValue" text="0"/>
-            <Button fx:id="startBtn" text="НАЧАЛО ИГРЫ" onAction="#onStartClick"/>
-            <Button fx:id="pauseBtn" text="ОСТАНОВИТЬ" onAction="#onPauseClick"/>
-            <Button fx:id="shotBtn" text="ВЫСТРЕЛ" onAction="#onShotClick"/>
-            <Label text="Время:"/>
-            <Label fx:id="timeValue" text="60"/>
+        <VBox fx:id="sidePanel" id="sidePanel" spacing="10">
+
+            <!-- SCORE -->
+            <VBox styleClass="stat-block" spacing="4">
+                <Label text="★ СЧЁТ" styleClass="label-header"/>
+                <Label fx:id="pointValue" text="0" styleClass="label-value"/>
+            </VBox>
+
+            <!-- SHOTS -->
+            <VBox styleClass="stat-block" spacing="4">
+                <Label text="✦ ВЫСТРЕЛЫ" styleClass="label-header"/>
+                <Label fx:id="shotValue" text="0" styleClass="label-value"/>
+            </VBox>
+
+            <!-- RECORD -->
+            <VBox styleClass="stat-block" spacing="4">
+                <Label text="♛ РЕКОРД" styleClass="label-header"/>
+                <Label fx:id="recordValue" text="0" styleClass="label-value"/>
+            </VBox>
+
+            <!-- TIME -->
+            <VBox styleClass="stat-block" spacing="4">
+                <Label text="⧗ ВРЕМЯ" styleClass="label-header"/>
+                <Label fx:id="timeValue" text="60" styleClass="label-value"/>
+            </VBox>
+
+            <!-- Spacer -->
+            <Region prefHeight="8"/>
+
+            <!-- BUTTONS -->
+            <Button fx:id="startBtn" id="startBtn"
+                    text="▶  НАЧАЛО ИГРЫ"
+                    styleClass="btn-pixel"
+                    onAction="#onStartClick"/>
+
+            <Button fx:id="pauseBtn" id="pauseBtn"
+                    text="⏸  ОСТАНОВИТЬ"
+                    styleClass="btn-pixel"
+                    onAction="#onPauseClick"/>
+
+            <Button fx:id="shotBtn" id="shotBtn"
+                    text="⚡  ВЫСТРЕЛ"
+                    styleClass="btn-pixel"
+                    onAction="#onShotClick"/>
+
         </VBox>
     </right>
+
     <center>
         <GameField fx:id="gameField"/>
     </center>
