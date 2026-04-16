@@ -13,6 +13,7 @@ public class GameField extends Canvas {
     private Image target2Image;
     private Image arrowImage;
     private Image playerImage;
+    private Image boomImage;
 
     public GameField() {
         super(900, 600);
@@ -21,6 +22,7 @@ public class GameField extends Canvas {
         target2Image = new Image(getClass().getResourceAsStream("/com/marksman/images/target.png"));
         arrowImage = new Image(getClass().getResourceAsStream("/com/marksman/images/arrow.png"));
         playerImage = new Image(getClass().getResourceAsStream("/com/marksman/images/hero.png"));
+        boomImage = new Image(getClass().getResourceAsStream("/com/marksman/images/boom.png"));
     }
 
     public GameField(double width, double height) {
@@ -51,4 +53,10 @@ public class GameField extends Canvas {
         GraphicsContext gc = getGraphicsContext2D();
         gc.drawImage(playerImage, 20, 200, 150, 160);
     }
+
+    public void drawBoom(Target target){
+        GraphicsContext gc = getGraphicsContext2D();
+        gc.drawImage(boomImage,  target.getxPosBoom() - 70, target.getyPosBoom()-100,  300, 300);
+    }
+
 }

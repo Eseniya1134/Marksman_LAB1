@@ -8,6 +8,8 @@ public class Target extends Thread{
     private int speed;
     private boolean isFar;
     private boolean running = true;
+    private int xPosBoom;
+    private int yPosBoom;
 
     public Target(int xPos, int yPos, int size, int speed, boolean isFar) {
         this.xPos = xPos;
@@ -82,6 +84,14 @@ public class Target extends Thread{
     public void setxPos(int xPos) {
         this.xPos = xPos;
     }
+
+    public void toDoBoom(int xPos, int yPos) {
+        this.xPosBoom = xPos;
+        this.yPosBoom = yPos;
+    }
+
+    public int getxPosBoom() { return xPosBoom; }
+    public int getyPosBoom() { return yPosBoom; }
 
 
 

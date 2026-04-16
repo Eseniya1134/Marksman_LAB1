@@ -46,7 +46,7 @@
                     onAction="#onStartClick"/>
 
             <Button fx:id="pauseBtn" id="pauseBtn"
-                    text="⏸  ОСТАНОВИТЬ"
+                    text="⏸  НАЧНИТЕ ИГРУ"
                     styleClass="btn-pixel"
                     onAction="#onPauseClick"/>
 

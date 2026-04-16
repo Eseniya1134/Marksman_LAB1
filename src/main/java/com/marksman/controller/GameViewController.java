@@ -24,6 +24,10 @@ public class GameViewController {
     private GameController gameController;
     private Target nearTarget;
     private Target farTarget;
+    private int boomTimer = 0;
+    private int flickerTimer = 0;
+    private Target boomTarget = null;
+    private boolean respawnFar = false;
     private Arrow arrow;
     private AnimationTimer gameLoop;
     private boolean flag = false;
@@ -32,14 +36,29 @@ public class GameViewController {
     public void initialize() {
         gameController = new GameController();
 
+        // если есть сохранённая игра — восстанавливаем UI
+        if (gameController.getState().getPaused()) {
+            pauseBtn.setText("Продолжить");
+        }
+
         gameLoop = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 gameField.render();
                 gameField.drawPlayer();
 
-                if (nearTarget != null) gameField.drawTarget(nearTarget);
-                if (farTarget != null) gameField.drawTarget(farTarget);
+                // рисуем мишени с эффектом мерцания при появлении
+                if (nearTarget != null) {
+                    if (flickerTimer <= 0 || respawnFar || flickerTimer % 4 < 2) {
+                        gameField.drawTarget(nearTarget);
+                    }
+                }
+                if (farTarget != null) {
+                    if (flickerTimer <= 0 || !respawnFar || flickerTimer % 4 < 2) {
+                        gameField.drawTarget(farTarget);
+                    }
+                }
+
                 if (arrow != null) gameField.drawArrow(arrow);
 
                 updateUI();
@@ -50,16 +69,47 @@ public class GameViewController {
                     return;
                 }
 
+                // отображаем бум и запускаем появление мишени после него
+                if (boomTimer > 0) {
+                    gameField.drawBoom(boomTarget);
+                    boomTimer--;
+                    if (boomTimer == 0) {
+                        if (respawnFar) {
+                            farTarget = new Target(700, 300, 60, 6, true);
+                            farTarget.start();
+                        } else {
+                            nearTarget = new Target(500, 300, 120, 3, false);
+                            nearTarget.start();
+                        }
+                        flickerTimer = 30;
+                    }
+                }
+
+                if (flickerTimer > 0) {
+                    flickerTimer--;
+                }
+
                 // проверки попаданий
                 if (arrow != null) {
                     if (nearTarget != null && nearTarget.isHit(arrow)) {
                         gameController.addPoint(1);
                         arrow.stopArrow();
                         arrow = null;
+                        nearTarget.toDoBoom(nearTarget.getxPos(), nearTarget.getyPos());
+                        boomTarget = nearTarget;
+                        boomTimer = 30;
+                        respawnFar = false;
+                        nearTarget = null;
+
                     } else if (farTarget != null && farTarget.isHit(arrow)) {
                         gameController.addPoint(2);
                         arrow.stopArrow();
                         arrow = null;
+                        farTarget.toDoBoom(farTarget.getxPos(), farTarget.getyPos());
+                        boomTarget = farTarget;
+                        boomTimer = 30;
+                        respawnFar = true;
+                        farTarget = null;
                     }
                 }
             }
@@ -85,7 +135,7 @@ public class GameViewController {
     private void onPauseClick() {
 
         // ИГРА ИДЕТ \ СТАВИМ НА ПАУЗУ
-        if (gameController.getState().isActive()) {
+        if (gameController.getState().getActive()) {
 
             flag = false;
 
@@ -98,8 +148,8 @@ public class GameViewController {
             pauseBtn.setText("Продолжить");
         }
 
-        // ИГРА НА ПАУЗЕ \ ПРОДОЛЖАЕМ
-        else if (gameController.getState().isPaused()) {
+        // ИГРА НА ПАУЗЕ \ ПРОДОЛЖАЕМ (включая загрузку из меню)
+        else if (gameController.getState().getPaused()) {
 
             flag = true;
 
@@ -137,8 +187,8 @@ public class GameViewController {
         if (nearTarget != null) nearTarget.stopTarget();
         if (farTarget != null) farTarget.stopTarget();
 
-        this.nearTarget = new Target(400, 300, 150, 3, false);
-        this.farTarget = new Target(650, 300, 75, 6, true);
+        this.nearTarget = new Target(500, 300, 120, 3, false);
+        this.farTarget = new Target(700, 300, 60, 6, true);
 
         nearTarget.start();
         farTarget.start();

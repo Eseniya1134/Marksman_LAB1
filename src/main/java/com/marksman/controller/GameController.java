@@ -1,5 +1,6 @@
 package com.marksman.controller;
 
+import com.marksman.SceneManager;
 import com.marksman.model.GameState;
 import com.marksman.model.SaveManager;
 
@@ -55,6 +56,8 @@ public class GameController {
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
+
+        SceneManager.switchTo("/com/marksman/gameOverView.fxml");
     }
 
     public void resumeGame() {
@@ -121,7 +124,7 @@ public class GameController {
         }
 
         gameTimer = new Timer(1000, e -> {
-            if (state.isActive() && timeLeft > 0) {
+            if (state.getActive() && timeLeft > 0) {
                 decreaseTime();
                 System.out.println("Time left: " + timeLeft);
 
